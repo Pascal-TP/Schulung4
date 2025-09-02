@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mitarbeiterfragebogen</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0 auto;
+      max-width: 900px;
+    }
+
+    header {
+      margin-top: 20px;
+    }
+
+    img.logo {
+      width: 300px;
+    }
+
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    input[type="radio"] {
+      transform: scale(1.2);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    canvas {
+      width: 100% !important;      
+      max-width: 100% !important;
+      hight: auto;
+      margin-top: 20px;
+    }
+
+    .button-row {
+      margin-top: 30px;
+    }
+
+    .print-area {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    #bestaetigungsSeite {
+      border: 2px solid #000;
+      padding: 40px;
+      margin-top: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .legende {
+      margin-top: 20px;
+      text-align: left;
+      display: inline-block;
+    }
+
+    .legende div {
+      margin: 5px 0;
+    }
+
+    .farbe-box {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .rot { background-color: red; }
+    .orange { background-color: orange; }
+    .gruen { background-color: green; }
+
+    .bewertungs-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 40px auto 20px auto;
+      font-weight: bold;
+      font-size: 1.2em;
+      gap: 10px;
+    }
+
+    .bewertungs-box {
+      width: 25px;
+      height: 25px;
+      display: inline-block;
+      margin-left: 10px;
+      border: 2px solid #000;
+    }
+
+    @media print {
+      .button-row, form button {
+        display: none;
+      }
+      body {
+        margin: 0;
+        color: black;
+        background: white;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="Firmenlogo" class="logo" />
+    <h1>Mitarbeiterfragebogen "psychische Belastung"</h1>
+    <p>Bitte beantworten Sie <u>alle</u> Fragen. Es werden <u>keine</u> Daten gespeichert! Sie haben die Möglichkeit, die Fragen und die Auswertung auszudrucken oder als pdf-Datei zu speichern. Nach der Auswertung senden Sie bitte die Bestätigung ihrem Vorgesezten per E-Mail. Vielen Dank!</p>
+  <p><u>Die Fragen sind gegliedert in den Bereichen:</u></p>
+    <p><b>Arbeitsinhalt</b> - Frage Nr. 1 bis 30</p>
+    <p><b>Arbeitsorganisation</b> - Frage Nr. 31 bis 45</p>
+    <p><b>Soziale Beziehungen</b> - Frage Nr. 46 bis 57</p>
+    <p><b>Arbeitsumgebung und Arbeitsplatzgestaltung</b> - Frage Nr. 58 bis 67</p></br>
+  </header>
+
+  <div id="eingabeBereich">
+    <label>Datum: <input type="date" id="datum" required></label>
+    <label style="margin-left: 20px;">Name: <input type="text" id="name" required></label>
+  </div>
+
+  <form id="fragebogen">
+    <table>
+      <tr>
+        <th>Nr.</th>
+        <th>Frage</th>
+        <th>Trifft nicht zu</th>
+        <th>Trifft eher nicht zu</th>
+        <th>Trifft eher zu</th>
+        <th>Trifft zu</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Bei meiner Arbeit ist man an Arbeitsvorgängen von Anfang bis Ende beteiligt.</td>
+        <td><input type="radio" name="frage1" value="1" required></td>
+        <td><input type="radio" name="frage1" value="2"></td>
+        <td><input type="radio" name="frage1" value="3"></td>
+        <td><input type="radio" name="frage1" value="4"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Bei meiner Arbeit führt man <b>nicht</b> nur kleine Teilaufgaben aus, sondern erledigt vollständige Aufgaben.</td>
+        <td><input type="radio" name="frage2" value="1" required></td>
+        <td><input type="radio" name="frage2" value="2"></td>
+        <td><input type="radio" name="frage2" value="3"></td>
+        <td><input type="radio" name="frage2" value="4"></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Man muss vorgegebene Arbeiten <b>nicht</b> nur ausführen, sondern auch selbst planen und die Ergebnisse überprüfen.</td>
+        <td><input type="radio" name="frage3" value="1" required></td>
+        <td><input type="radio" name="frage3" value="2"></td>
+        <td><input type="radio" name="frage3" value="3"></td>
+        <td><input type="radio" name="frage3" value="4"></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Bei meiner Arbeit kann man die Reihenfolge der Aufgabenerledigung selbst bestimmen.</td>
+        <td><input type="radio" name="frage4" value="1" required></td>
+        <td><input type="radio" name="frage4" value="2"></td>
+        <td><input type="radio" name="frage4" value="3"></td>
+        <td><input type="radio" name="frage4" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>5</td>
+        <td>Man kann bei meiner Arbeit selbst bestimmen, wann man was macht.</td>
+        <td><input type="radio" name="frage5" value="1" required></td>
+        <td><input type="radio" name="frage5" value="2"></td>
+        <td><input type="radio" name="frage5" value="3"></td>
+        <td><input type="radio" name="frage5" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>6</td>
+        <td>Man hat viele Freiheiten in der Art und Weise, wie man seine Arbeit verrichtet.</td>
+        <td><input type="radio" name="frage6" value="1" required></td>
+        <td><input type="radio" name="frage6" value="2"></td>
+        <td><input type="radio" name="frage6" value="3"></td>
+        <td><input type="radio" name="frage6" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>7</td>
+        <td>Bei meiner Arbeit hat man fast jeden Tag etwas anderes zu tun.</td>
+        <td><input type="radio" name="frage7" value="1" required></td>
+        <td><input type="radio" name="frage7" value="2"></td>
+        <td><input type="radio" name="frage7" value="3"></td>
+        <td><input type="radio" name="frage7" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>8</td>
+        <td>Die Arbeitsaufgaben wechseln häufig bei meiner Arbeit.</td>
+        <td><input type="radio" name="frage8" value="1" required></td>
+        <td><input type="radio" name="frage8" value="2"></td>
+        <td><input type="radio" name="frage8" value="3"></td>
+        <td><input type="radio" name="frage8" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>9</td>
+        <td>Man muss bei meiner Arbeit unterschiedliche Fähigkeiten einsetzen.</td>
+        <td><input type="radio" name="frage9" value="1" required></td>
+        <td><input type="radio" name="frage9" value="2"></td>
+        <td><input type="radio" name="frage9" value="3"></td>
+        <td><input type="radio" name="frage9" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>10</td>
+        <td>Es ist leicht, die für die Arbeit notwendigen Informationen zu beschaffen.</td>
+        <td><input type="radio" name="frage10" value="1" required></td>
+        <td><input type="radio" name="frage10" value="2"></td>
+        <td><input type="radio" name="frage10" value="3"></td>
+        <td><input type="radio" name="frage10" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>11</td>
+        <td>Erforderliche Unterlagen, Informationen und Daten sind bei meiner Arbeit meistens vollständig.</td>
+        <td><input type="radio" name="frage11" value="1" required></td>
+        <td><input type="radio" name="frage11" value="2"></td>
+        <td><input type="radio" name="frage11" value="3"></td>
+        <td><input type="radio" name="frage11" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>12</td>
+        <td>Entscheidungen licht leicht zu treffen, weil häufig alle notwendigen Informationen vorliegen.</td>
+        <td><input type="radio" name="frage12" value="1" required></td>
+        <td><input type="radio" name="frage12" value="2"></td>
+        <td><input type="radio" name="frage12" value="3"></td>
+        <td><input type="radio" name="frage12" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>13</td>
+        <td>Die tägliche Informationsmenge bei meiner Arbeit ist genau richtig (zum Beispiel Mails, Unternehmenskommunikation).</td>
+        <td><input type="radio" name="frage13" value="1" required></td>
+        <td><input type="radio" name="frage13" value="2"></td>
+        <td><input type="radio" name="frage13" value="3"></td>
+        <td><input type="radio" name="frage13" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>14</td>
+        <td>Die wichtigen Informationen sind in den verfügbaren Daten gut zu erkennen.</td>
+        <td><input type="radio" name="frage14" value="1" required></td>
+        <td><input type="radio" name="frage14" value="2"></td>
+        <td><input type="radio" name="frage14" value="3"></td>
+        <td><input type="radio" name="frage14" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>15</td>
+        <td>Die vielen unterschiedlichen Informationskanäle (zum Beispiel Akten, Datenbanken, Intranet) sind gut zu handhaben.</td>
+        <td><input type="radio" name="frage15" value="1" required></td>
+        <td><input type="radio" name="frage15" value="2"></td>
+        <td><input type="radio" name="frage15" value="3"></td>
+        <td><input type="radio" name="frage15" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>16</td>
+        <td>Man weiß genau, wie weit die eigenen Entscheidungsbefugnisse reichen.</td>
+        <td><input type="radio" name="frage16" value="1" required></td>
+        <td><input type="radio" name="frage16" value="2"></td>
+        <td><input type="radio" name="frage16" value="3"></td>
+        <td><input type="radio" name="frage16" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>17</td>
+        <td>Man erhält immer genaue und <b>nie</b> widersprüchliche Anweisungen von unterschiedlichen Stellen (Führungskräften/Abteilungen).</td>
+        <td><input type="radio" name="frage17" value="1" required></td>
+        <td><input type="radio" name="frage17" value="2"></td>
+        <td><input type="radio" name="frage17" value="3"></td>
+        <td><input type="radio" name="frage17" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>18</td>
+        <td>Bei meiner Arbeit sind die Prioritäten klar abgesteckt.</td>
+        <td><input type="radio" name="frage18" value="1" required></td>
+        <td><input type="radio" name="frage18" value="2"></td>
+        <td><input type="radio" name="frage18" value="3"></td>
+        <td><input type="radio" name="frage18" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>19</td>
+        <td>Man muss nur Aufgaben übernehmen, für die man korrekt eingearbeitet ist.</td>
+        <td><input type="radio" name="frage19" value="1" required></td>
+        <td><input type="radio" name="frage19" value="2"></td>
+        <td><input type="radio" name="frage19" value="3"></td>
+        <td><input type="radio" name="frage19" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>20</td>
+        <td>Bei meiner Arbeit muss man nur Tätigkeiten durchführen, für die man auch ausgebildet ist.</td>
+        <td><input type="radio" name="frage20" value="1" required></td>
+        <td><input type="radio" name="frage20" value="2"></td>
+        <td><input type="radio" name="frage20" value="3"></td>
+        <td><input type="radio" name="frage20" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>21</td>
+        <td>Man fühlt sich <b>nicht</b> von den Aufgaben überfordert.</td>
+        <td><input type="radio" name="frage21" value="1" required></td>
+        <td><input type="radio" name="frage21" value="2"></td>
+        <td><input type="radio" name="frage21" value="3"></td>
+        <td><input type="radio" name="frage21" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>22</td>
+        <td>Bei meiner Arbeit hat man auch anspruchsvolle Aufgabe.</td>
+        <td><input type="radio" name="frage22" value="1" required></td>
+        <td><input type="radio" name="frage22" value="2"></td>
+        <td><input type="radio" name="frage22" value="3"></td>
+        <td><input type="radio" name="frage22" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>23</td>
+        <td>Meine mögliche Leistung entspricht genau den Anforderungen.</td>
+        <td><input type="radio" name="frage23" value="1" required></td>
+        <td><input type="radio" name="frage23" value="2"></td>
+        <td><input type="radio" name="frage23" value="3"></td>
+        <td><input type="radio" name="frage23" value="4"></td>
+      </tr>
+
+
+      <tr>
+        <td>24</td>
+        <td>Man fühlt sich <b>nicht</b> bei meiner Arbeit unterfordert.</td>
+        <td><input type="radio" name="frage24" value="1" required></td>
+        <td><input type="radio" name="frage24" value="2"></td>
+        <td><input type="radio" name="frage24" value="3"></td>
+        <td><input type="radio" name="frage24" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>25</td>
+        <td>Meine Arbeit bringt einen <b>nicht</b> in stark emotional belastende Situationen (zum Beispiel Trauer, Wut).</td>
+        <td><input type="radio" name="frage25" value="1" required></td>
+        <td><input type="radio" name="frage25" value="2"></td>
+        <td><input type="radio" name="frage25" value="3"></td>
+        <td><input type="radio" name="frage25" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>26</td>
+        <td>Bei meiner Arbeit ist man <b>nie</b> mit aggressivem Verhalten oder Übergriffen (zum Beispiel von Kundinnen/Kunden oder von Klientinnen/Klienten) konfrontiert.</td>
+        <td><input type="radio" name="frage26" value="1" required></td>
+        <td><input type="radio" name="frage26" value="2"></td>
+        <td><input type="radio" name="frage26" value="3"></td>
+        <td><input type="radio" name="frage26" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>27</td>
+        <td>Es passiert selten bis gar nicht, dass man mit unverschämten Personen oder unangemessenem Verhalten zu tun hat.</td>
+        <td><input type="radio" name="frage27" value="1" required></td>
+        <td><input type="radio" name="frage27" value="2"></td>
+        <td><input type="radio" name="frage27" value="3"></td>
+        <td><input type="radio" name="frage27" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>28</td>
+        <td>Bei meiner Arbeit muss man selten bis gar nicht nach außen hin Gefühle zeigen, die nicht mit den eigentlichen Gefühlen übereinstimmen.</td>
+        <td><input type="radio" name="frage28" value="1" required></td>
+        <td><input type="radio" name="frage28" value="2"></td>
+        <td><input type="radio" name="frage28" value="3"></td>
+        <td><input type="radio" name="frage28" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>29</td>
+        <td>Bei meiner Arbeit muss man seine aktuellen Gefühle <b>nie</b> verbergen.</td>
+        <td><input type="radio" name="frage29" value="1" required></td>
+        <td><input type="radio" name="frage29" value="2"></td>
+        <td><input type="radio" name="frage29" value="3"></td>
+        <td><input type="radio" name="frage29" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>30</td>
+        <td>Man muss <b>niemals</b> die eigenen Gefühle den momentanen Gefühlen von anderen anpassen.</td>
+        <td><input type="radio" name="frage30" value="1" required></td>
+        <td><input type="radio" name="frage30" value="2"></td>
+        <td><input type="radio" name="frage30" value="3"></td>
+        <td><input type="radio" name="frage30" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>31</td>
+        <td>Man hat <b>keine</b> sehr stark variierende Arbeitszeiten.</td>
+        <td><input type="radio" name="frage31" value="1" required></td>
+        <td><input type="radio" name="frage31" value="2"></td>
+        <td><input type="radio" name="frage31" value="3"></td>
+        <td><input type="radio" name="frage31" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>32</td>
+        <td>Man muss <b>nie</b> zu ungünstigen Arbeitszeiten arbeiten.</td>
+        <td><input type="radio" name="frage32" value="1" required></td>
+        <td><input type="radio" name="frage32" value="2"></td>
+        <td><input type="radio" name="frage32" value="3"></td>
+        <td><input type="radio" name="frage32" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>33</td>
+        <td>Bei meiner Arbeit ist man zu keiner Zeit mit schlecht gestalteten Arbeitszeiten konfrontiert.</td>
+        <td><input type="radio" name="frage33" value="1" required></td>
+        <td><input type="radio" name="frage33" value="2"></td>
+        <td><input type="radio" name="frage33" value="3"></td>
+        <td><input type="radio" name="frage33" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>34</td>
+        <td>Bei meiner Arbeit macht man selten bis gar keine Überstunden.</td>
+        <td><input type="radio" name="frage34" value="1" required></td>
+        <td><input type="radio" name="frage34" value="2"></td>
+        <td><input type="radio" name="frage34" value="3"></td>
+        <td><input type="radio" name="frage34" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>35</td>
+        <td>Man bekommt selten bis gar nicht kurzfristig zusätzliche Aufgaben, sodass man den Feierabend nicht einhalten kann.</td>
+        <td><input type="radio" name="frage35" value="1" required></td>
+        <td><input type="radio" name="frage35" value="2"></td>
+        <td><input type="radio" name="frage35" value="3"></td>
+        <td><input type="radio" name="frage35" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>36</td>
+        <td>Außerhalb der regulären Arbeitszeiten ist es bei meiner Arbeit selten bis gar nicht erforderlich, verfügbar zu sein.</td>
+        <td><input type="radio" name="frage36" value="1" required></td>
+        <td><input type="radio" name="frage36" value="2"></td>
+        <td><input type="radio" name="frage36" value="3"></td>
+        <td><input type="radio" name="frage36" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>37</td>
+        <td>Um die Arbeitsmenge bei meiner Arbeit zu schaffen, muss man nur selten länger arbeiten aber niemals Pausen wegfallen lassen.</td>
+        <td><input type="radio" name="frage37" value="1" required></td>
+        <td><input type="radio" name="frage37" value="2"></td>
+        <td><input type="radio" name="frage37" value="3"></td>
+        <td><input type="radio" name="frage37" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>38</td>
+        <td>Trotz der hohen Arbeitsmenge kommt es <b>nie</b> zu hohem Zeitdruck.</td>
+        <td><input type="radio" name="frage38" value="1" required></td>
+        <td><input type="radio" name="frage38" value="2"></td>
+        <td><input type="radio" name="frage38" value="3"></td>
+        <td><input type="radio" name="frage38" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>39</td>
+        <td>Es kommt selten bis gar nicht vor, dass man nicht genügend Zeit hat, alle Aufgaben zu erledigen.</td>
+        <td><input type="radio" name="frage39" value="1" required></td>
+        <td><input type="radio" name="frage39" value="2"></td>
+        <td><input type="radio" name="frage39" value="3"></td>
+        <td><input type="radio" name="frage39" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>40</td>
+        <td>Man wird bei der täglichen Arbeit nur sehr selten durch andere Personen unterbrochen.</td>
+        <td><input type="radio" name="frage40" value="1" required></td>
+        <td><input type="radio" name="frage40" value="2"></td>
+        <td><input type="radio" name="frage40" value="3"></td>
+        <td><input type="radio" name="frage40" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>41</td>
+        <td>Man hat selten bis gar nicht mehrere Aufgaben gleichzeitig, zwischen denen man hin- und herspringen muss.</td>
+        <td><input type="radio" name="frage41" value="1" required></td>
+        <td><input type="radio" name="frage41" value="2"></td>
+        <td><input type="radio" name="frage41" value="3"></td>
+        <td><input type="radio" name="frage41" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>42</td>
+        <td>Man muss bei meiner Arbeit selten bis gar nicht aktuelle Arbeiten unterbrechen, weil etwas Wichtiges dazwischenkommt.</td>
+        <td><input type="radio" name="frage42" value="1" required></td>
+        <td><input type="radio" name="frage42" value="2"></td>
+        <td><input type="radio" name="frage42" value="3"></td>
+        <td><input type="radio" name="frage42" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>43</td>
+        <td>Man steht in direktem persönlichen Kontakt mit Kolleginnen und Kollegen.</td>
+        <td><input type="radio" name="frage43" value="1" required></td>
+        <td><input type="radio" name="frage43" value="2"></td>
+        <td><input type="radio" name="frage43" value="3"></td>
+        <td><input type="radio" name="frage43" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>44</td>
+        <td>An meinem Arbeitsplatz mangelt es nicht an Möglichkeiten zum persönlichen Austausch.</td>
+        <td><input type="radio" name="frage44" value="1" required></td>
+        <td><input type="radio" name="frage44" value="2"></td>
+        <td><input type="radio" name="frage44" value="3"></td>
+        <td><input type="radio" name="frage44" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>45</td>
+        <td>Man kann sich bei meiner Arbeit mit seinen Kolleginnen und Kollegen unterhalten.</td>
+        <td><input type="radio" name="frage45" value="1" required></td>
+        <td><input type="radio" name="frage45" value="2"></td>
+        <td><input type="radio" name="frage45" value="3"></td>
+        <td><input type="radio" name="frage45" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>46</td>
+        <td>Wenn es Probleme bei der Arbeit gibt, kann man sich auf die Unterstützung der Kolleginnen und Kollegen verlassen.</td>
+        <td><input type="radio" name="frage46" value="1" required></td>
+        <td><input type="radio" name="frage46" value="2"></td>
+        <td><input type="radio" name="frage46" value="3"></td>
+        <td><input type="radio" name="frage46" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>47</td>
+        <td>Man kann mit seinen Kolleginnen und Kollegen offen über alles reden.</td>
+        <td><input type="radio" name="frage47" value="1" required></td>
+        <td><input type="radio" name="frage47" value="2"></td>
+        <td><input type="radio" name="frage47" value="3"></td>
+        <td><input type="radio" name="frage47" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>48</td>
+        <td>Meine Kolleginnen und Kollegen sind immer bereit, sich meine Arbeitsprobleme anzuhören.</td>
+        <td><input type="radio" name="frage48" value="1" required></td>
+        <td><input type="radio" name="frage48" value="2"></td>
+        <td><input type="radio" name="frage48" value="3"></td>
+        <td><input type="radio" name="frage48" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>49</td>
+        <td>Es gibt selten bis gar keine Spannungen unter Kolleginnen und Kollegen.</td>
+        <td><input type="radio" name="frage49" value="1" required></td>
+        <td><input type="radio" name="frage49" value="2"></td>
+        <td><input type="radio" name="frage49" value="3"></td>
+        <td><input type="radio" name="frage49" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>50</td>
+        <td>Man wird bei meiner Arbeit von anderen <b>nie</b> ungerecht kritisiert oder bloßgestellt.</td>
+        <td><input type="radio" name="frage50" value="1" required></td>
+        <td><input type="radio" name="frage50" value="2"></td>
+        <td><input type="radio" name="frage50" value="3"></td>
+        <td><input type="radio" name="frage50" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>51</td>
+        <td>Es gibt niemals Streitereien an meinem Arbeitsplatz.</td>
+        <td><input type="radio" name="frage51" value="1" required></td>
+        <td><input type="radio" name="frage51" value="2"></td>
+        <td><input type="radio" name="frage51" value="3"></td>
+        <td><input type="radio" name="frage51" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>52</td>
+        <td>Meine Führungskraft ist bereit, sich meine Probleme anzuhören.</td>
+        <td><input type="radio" name="frage52" value="1" required></td>
+        <td><input type="radio" name="frage52" value="2"></td>
+        <td><input type="radio" name="frage52" value="3"></td>
+        <td><input type="radio" name="frage52" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>53</td>
+        <td>Man kann sich auf die Unterstützung der Führungskraft verlassen, wenn es Probleme bei der Arbeit gibt.</td>
+        <td><input type="radio" name="frage53" value="1" required></td>
+        <td><input type="radio" name="frage53" value="2"></td>
+        <td><input type="radio" name="frage53" value="3"></td>
+        <td><input type="radio" name="frage53" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>54</td>
+        <td>Meine Führungskraft unterstützt mich, sodass ich meine Aufgaben leichter erfüllen kann.</td>
+        <td><input type="radio" name="frage54" value="1" required></td>
+        <td><input type="radio" name="frage54" value="2"></td>
+        <td><input type="radio" name="frage54" value="3"></td>
+        <td><input type="radio" name="frage54" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>55</td>
+        <td>Man bekommt von Führungskräften sowie von Kolleginnen und Kollegen Rückmeldungen über die Qualität der Arbeit.</td>
+        <td><input type="radio" name="frage55" value="1" required></td>
+        <td><input type="radio" name="frage55" value="2"></td>
+        <td><input type="radio" name="frage55" value="3"></td>
+        <td><input type="radio" name="frage55" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>56</td>
+        <td>Man erhält Wertschätzung für seine Arbeit.</td>
+        <td><input type="radio" name="frage56" value="1" required></td>
+        <td><input type="radio" name="frage56" value="2"></td>
+        <td><input type="radio" name="frage56" value="3"></td>
+        <td><input type="radio" name="frage56" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>57</td>
+        <td>Meine Führungskraft gibt mir nützliches Feedback über meine Arbeitsleistung.</td>
+        <td><input type="radio" name="frage57" value="1" required></td>
+        <td><input type="radio" name="frage57" value="2"></td>
+        <td><input type="radio" name="frage57" value="3"></td>
+        <td><input type="radio" name="frage57" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>58</td>
+        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Lärm</td>
+        <td><input type="radio" name="frage58" value="1" required></td>
+        <td><input type="radio" name="frage58" value="2"></td>
+        <td><input type="radio" name="frage58" value="3"></td>
+        <td><input type="radio" name="frage58" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>59</td>
+        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Hitze</td>
+        <td><input type="radio" name="frage59" value="1" required></td>
+        <td><input type="radio" name="frage59" value="2"></td>
+        <td><input type="radio" name="frage59" value="3"></td>
+        <td><input type="radio" name="frage59" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>60</td>
+        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Ungünstige Beleuchtung / Blendung</td>
+        <td><input type="radio" name="frage60" value="1" required></td>
+        <td><input type="radio" name="frage60" value="2"></td>
+        <td><input type="radio" name="frage60" value="3"></td>
+        <td><input type="radio" name="frage60" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>61</td>
+        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Gefahrstoffe</td>
+        <td><input type="radio" name="frage61" value="1" required></td>
+        <td><input type="radio" name="frage61" value="2"></td>
+        <td><input type="radio" name="frage61" value="3"></td>
+        <td><input type="radio" name="frage61" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>62</td>
+        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Räumliche Enge</td>
+        <td><input type="radio" name="frage62" value="1" required></td>
+        <td><input type="radio" name="frage62" value="2"></td>
+        <td><input type="radio" name="frage62" value="3"></td>
+        <td><input type="radio" name="frage62" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>63</td>
+        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Ungünstige ergonomische Gestaltung</td>
+        <td><input type="radio" name="frage63" value="1" required></td>
+        <td><input type="radio" name="frage63" value="2"></td>
+        <td><input type="radio" name="frage63" value="3"></td>
+        <td><input type="radio" name="frage63" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>64</td>
+        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Ununterbrochen gleiche Bewegung</td>
+        <td><input type="radio" name="frage64" value="1" required></td>
+        <td><input type="radio" name="frage64" value="2"></td>
+        <td><input type="radio" name="frage64" value="3"></td>
+        <td><input type="radio" name="frage64" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>65</td>
+        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Unzureichende Gestaltung von Signalen und Hinweisen</td>
+        <td><input type="radio" name="frage65" value="1" required></td>
+        <td><input type="radio" name="frage65" value="2"></td>
+        <td><input type="radio" name="frage65" value="3"></td>
+        <td><input type="radio" name="frage65" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>66</td>
+        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Schwere körpeliche Arbeit</td>
+        <td><input type="radio" name="frage66" value="1" required></td>
+        <td><input type="radio" name="frage66" value="2"></td>
+        <td><input type="radio" name="frage66" value="3"></td>
+        <td><input type="radio" name="frage66" value="4"></td>
+      </tr>
+
+      <tr>
+        <td>67</td>
+        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Fehlende oder ungünstig zu bedienende Arbeitsmittel</td>
+        <td><input type="radio" name="frage67" value="1" required></td>
+        <td><input type="radio" name="frage67" value="2"></td>
+        <td><input type="radio" name="frage67" value="3"></td>
+        <td><input type="radio" name="frage67" value="4"></td>
+      </tr>
+
+
+    </table>
+
+    <button type="button" onclick="auswerten()">Auswertung</button>
+    <br><br>
+    <p><u>(&#8593;&#8593;&#8593; Ansicht bitte hochschieben &#8593;&#8593;&#8593;)</u></p>
+    <br><br>
+    <br><br>
+    <br><br>
+ 
+ </form>
+
+  <div id="auswertung" class="hidden print-area">
+    <h2>Auswertung</h2>
+    <canvas id="balkenChart"></canvas>
+
+    <div class="bewertungs-label">
+      Bewertung:
+      <div id="bewertungsFarbe" class="bewertungs-box"></div>
+    </div>
+
+    <div class="legende">
+      <h4>Farblegende (Antworten):</h4>
+      <div><span class="farbe-box rot"></span> Trifft nicht zu</div>
+      <div><span class="farbe-box orange"></span> Trifft eher nicht zu / Trifft eher zu</div>
+      <div><span class="farbe-box gruen"></span> Trifft zu</div>
+      <br>
+      <h4>Farblegende (Bewertung):</h4>
+      <div><span class="farbe-box gruen"></span> Kein unmittelbarer Handlungsbedarf, passen Sie weiter auf sich auf. Sprechen Sie mit Ihren Vorgesetzten, wenn Sie Bedenken haben.</div><br>
+      <div><span class="farbe-box orange"></span> Wenn es zu keiner Verschlechterung der Umstände kommen soll, dann ist Handlungsbedarf empfehlenswert. Sprechen Sie mit Ihrem Vorgesetzten.</div><br>
+      <div><span class="farbe-box rot"></span> Es besteht Handlungsbedarf. Sprechen Sie mit Ihrem Vorgesetzten.</div>
+    </div>
+<br>
+<br>
+<p>Hinweise zum Drucken und Speichern:</p>
+<p>Aktivieren Sie unter "Weitere Einstellungen" im Druckmenü die Hintergundgrafiken, damit alle Farben gedruckt werden!</p>
+<p>Wählen Sie anstelle des Druckers "als pdf speichern" aus, um den Nachweis an einen beliebigen Ort zu speichern.</p>
+    
+<div class="button-row">
+      <button onclick="window.print()">Drucken/speichern der Auswertung</button>
+      <button onclick="resetForm()">Fragebogen von vorne beginnen</button>
+      <button onclick="zeigeBestaetigung()">Bestätigung anzeigen</button>
+    </div>
+  </div>
+
+  <div id="bestaetigungsSeite" class="hidden print-area print-only">
+    <img src="logo.png" alt="Firmenlogo" class="logo" />
+    <h2>Bestätigung</h2>
+    <p>Am <span id="bestDatum"></span> hat <strong><span id="bestName"></span></strong> an der Schulung <strong>„Psychische Belastung“</strong> teilgenommen.</p>
+    <p style="margin-top: 60px;">Mit dem Versenden der PDF-Datei bestätige ich die Schulung selbst durchgeführt und die Inhalte verstanden zu haben.</p></p>
+    <br>
+    <p>Bitte speichern Sie diese Bestätigung und senden diese Ihren Vorgesetzten per E-Mail.</p>
+
+    <div class="button-row">
+      <button onclick="window.print()">💾 Als PDF speichern</button>
+      <button onclick="resetForm()">Fragebogen von vorne beginnen</button>
+    </div>
+  </div>
+
+  <script>
+    function auswerten() {
+      const name = document.getElementById("name").value.trim();
+      const datum = document.getElementById("datum").value;
+
+      if (!name || !datum) {
+        alert("Bitte Name und Datum eingeben.");
+        return;
+      }
+
+      const fragen = ["frage1", "frage2", "frage3", "frage4", "frage5", "frage6", "frage7", "frage8", "frage9", "frage10", "frage11", "frage12", "frage13", "frage14", "frage15", "frage16", "frage17", "frage18", "frage19", "frage20", "frage21", "frage22", "frage23", "frage24", "frage25", "frage26", "frage27", "frage28", "frage29", "frage30", "frage31", "frage32", "frage33", "frage34", "frage35", "frage36", "frage37", "frage38", "frage39", "frage40", "frage41", "frage42", "frage43", "frage44", "frage45", "frage46", "frage47", "frage48", "frage49", "frage50", "frage51", "frage52", "frage53", "frage54", "frage55", "frage56", "frage57", "frage58", "frage59", "frage60", "frage61", "frage62", "frage63", "frage64", "frage65", "frage66", "frage67"];
+      const antworten = [];
+
+      for (let frage of fragen) {
+        const checked = document.querySelector(`input[name="${frage}"]:checked`);
+        if (checked) {
+          antworten.push(parseInt(checked.value));
+        } else {
+          alert("Bitte alle Fragen beantworten.");
+          return;
+        }
+      }
+
+      // Berechne Bewertung basierend auf "Trifft zu" (Wert = 4)
+      const trifftZuCount = antworten.filter(val => val === 4).length;
+      const prozentTrifftZu = (trifftZuCount / antworten.length) * 100;
+
+      // Berechne Bewertung basierend auf "Trifft eher zu" (Wert = 3)
+      const trifftEherZuCount = antworten.filter(val => val === 3).length;
+      const prozentTrifftEherZu = (trifftEherZuCount / antworten.length) * 100;
+
+      // Berechne Bewertung basierend auf "Trifft eher nicht zu" (Wert = 2)
+      const trifftEherNichtZuCount = antworten.filter(val => val === 2).length;
+      const prozentTrifftEherNichtZu = (trifftEherNichtZuCount / antworten.length) * 100;
+
+      // Berechne Bewertung basierend auf "Trifft nicht zu" (Wert = 1)
+      const trifftNichtZuCount = antworten.filter(val => val === 1).length;
+      const prozentTrifftNichtZu = (trifftNichtZuCount / antworten.length) * 100;
+
+
+      let bewertungsFarbe = "gray";
+      if (prozentTrifftNichtZu >= 1) {
+        bewertungsFarbe = "red";
+      } else if (prozentTrifftEherNichtZu >= 1) {
+        bewertungsFarbe = "orange";
+      } else if (prozentTrifftEherZu >=20) {
+        bewertungsFarbe = "orange";
+      } else if (prozentTrifftZu >=80) {
+        bewertungsFarbe = "green";
+      }
+
+      document.getElementById("bewertungsFarbe").style.backgroundColor = bewertungsFarbe;
+
+      const farben = antworten.map(wert => {
+        if (wert === 1) return 'red';
+        if (wert === 2 || wert === 3) return 'orange';
+        if (wert === 4) return 'green';
+        return 'gray';
+      });
+
+      const ctx = document.getElementById("balkenChart").getContext("2d");
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: fragen.map((_, i) => `${i + 1}`),
+          datasets: [{
+            label: 'Bewertung',
+            data: antworten,
+            backgroundColor: farben,
+            borderColor: 'black',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false
+}
+},
+            scales: {
+            y: {
+              min: 0,
+              max: 4,
+              ticks: { stepSize: 1 }
+            }
+          }
+        }
+      });
+
+      document.getElementById("auswertung").classList.remove("hidden");
+    }
+
+    function resetForm() {
+      document.getElementById("fragebogen").reset();
+      document.getElementById("name").value = "";
+      document.getElementById("datum").value = "";
+      document.getElementById("auswertung").classList.add("hidden");
+      document.getElementById("bestaetigungsSeite").classList.add("hidden");
+      document.getElementById("eingabeBereich").classList.remove("hidden");
+      location.reload();
+    }
+
+    function zeigeBestaetigung() {
+      const name = document.getElementById("name").value.trim();
+      const datum = document.getElementById("datum").value;
+
+     if (!name || !datum) {
+      alert("Bitte Name und Datum eingeben.");
+      return;
+     }
+
+      document.getElementById("bestName").textContent = name;
+      document.getElementById("bestDatum").textContent = datum;
+
+      document.getElementById("bestaetigungsSeite").classList.remove("hidden");
+      document.getElementById("auswertung").classList.add("hidden");
+      document.getElementById("fragebogen").classList.add("hidden");
+      document.getElementById("eingabeBereich").classList.add("hidden");
+      document.querySelector("header").classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
