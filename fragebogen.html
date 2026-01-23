@@ -52,7 +52,8 @@
     }
 
     .button-row {
-      margin-top: 30px;
+      margin-top: 80px;
+      margin-bottom: 60px;
     }
 
     .print-area {
@@ -119,6 +120,22 @@
         background: white;
       }
     }
+.translate-btn {
+      background-color:#4285F4; 
+      color:white; 
+      border:none; 
+      padding:8px 16px; 
+      border-radius:5px; 
+      font-size:14px;
+      margin:10px 0;
+      cursor:pointer;
+    }
+.subtext {
+  font-size: 0.75em;   /* kleiner als Haupttext */
+  font-weight: normal;
+  display: block;     /* sorgt für sauberen Zeilenumbruch */
+  margin-top: 2px;
+}
   </style>
 </head>
 <body>
@@ -126,13 +143,18 @@
   <header>
     <img src="logo.png" alt="Firmenlogo" class="logo" />
     <h1>Mitarbeiterfragebogen "psychische Belastung"</h1>
+<div style="text-align:center; margin-bottom:20px;">
+  <button class="translate-btn" onclick="openStartTextTranslate()">Google Translator</button>
+</div>
+<div id="start-text">
     <p>Bitte beantworten Sie <u>alle</u> Fragen. Es werden <u>keine</u> Daten gespeichert! Sie haben die Möglichkeit, die Fragen und die Auswertung auszudrucken oder als pdf-Datei zu speichern. Nach der Auswertung senden Sie bitte NUR die Bestätigung an: arbeitsscherheit@tpholding.de - Vielen Dank!</p>
   <p><u>Die Fragen sind gegliedert in den Bereichen:</u></p>
     <p><b>Arbeitsinhalt</b> - Frage Nr. 1 bis 30</p>
     <p><b>Arbeitsorganisation</b> - Frage Nr. 31 bis 45</p>
     <p><b>Soziale Beziehungen</b> - Frage Nr. 46 bis 57</p>
     <p><b>Arbeitsumgebung und Arbeitsplatzgestaltung</b> - Frage Nr. 58 bis 67</p></br>
-  </header>
+</div>  
+</header>
 
   <div id="eingabeBereich">
     <label>Datum: <input type="date" id="datum" required></label>
@@ -142,16 +164,22 @@
   <form id="fragebogen">
     <table>
       <tr>
-        <th>Nr.</th>
-        <th>Frage</th>
-        <th>Trifft nicht zu</th>
-        <th>Trifft eher nicht zu</th>
-        <th>Trifft eher zu</th>
-        <th>Trifft zu</th>
+        <th>Nr.<br><span class="subtext">(no.)</span></th>
+        <th>Frage<br><span class="subtext">(question)</span></th>
+        <th>Übersetzen<br><span class="subtext">(translate)</span></th>
+        <th>Trifft nicht zu<br><span class="subtext">(Does not apply)</span></th>
+        <th>Trifft eher nicht zu<br><span class="subtext">(rather does not apply)</span></th>
+        <th>Trifft eher zu<br><span class="subtext">(rather applies)</span></th>
+        <th>Trifft zu<br><span class="subtext">(applies)</span></th>
       </tr>
       <tr>
         <td>1</td>
-        <td>Bei meiner Arbeit ist man an Arbeitsvorgängen von Anfang bis Ende beteiligt.</td>
+        <td class="frage-text">Bei meiner Arbeit ist man an Arbeitsvorgängen von Anfang bis Ende beteiligt.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage1" value="1" required></td>
         <td><input type="radio" name="frage1" value="2"></td>
         <td><input type="radio" name="frage1" value="3"></td>
@@ -159,7 +187,12 @@
       </tr>
       <tr>
         <td>2</td>
-        <td>Bei meiner Arbeit führt man <b>nicht</b> nur kleine Teilaufgaben aus, sondern erledigt vollständige Aufgaben.</td>
+        <td class="frage-text">Bei meiner Arbeit führt man <b>nicht</b> nur kleine Teilaufgaben aus, sondern erledigt vollständige Aufgaben.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage2" value="1" required></td>
         <td><input type="radio" name="frage2" value="2"></td>
         <td><input type="radio" name="frage2" value="3"></td>
@@ -167,7 +200,12 @@
       </tr>
       <tr>
         <td>3</td>
-        <td>Man muss vorgegebene Arbeiten <b>nicht</b> nur ausführen, sondern auch selbst planen und die Ergebnisse überprüfen.</td>
+        <td class="frage-text">Man muss vorgegebene Arbeiten <b>nicht</b> nur ausführen, sondern auch selbst planen und die Ergebnisse überprüfen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage3" value="1" required></td>
         <td><input type="radio" name="frage3" value="2"></td>
         <td><input type="radio" name="frage3" value="3"></td>
@@ -175,7 +213,12 @@
       </tr>
       <tr>
         <td>4</td>
-        <td>Bei meiner Arbeit kann man die Reihenfolge der Aufgabenerledigung selbst bestimmen.</td>
+        <td class="frage-text">Bei meiner Arbeit kann man die Reihenfolge der Aufgabenerledigung selbst bestimmen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage4" value="1" required></td>
         <td><input type="radio" name="frage4" value="2"></td>
         <td><input type="radio" name="frage4" value="3"></td>
@@ -184,7 +227,12 @@
 
       <tr>
         <td>5</td>
-        <td>Man kann bei meiner Arbeit selbst bestimmen, wann man was macht.</td>
+        <td class="frage-text">Man kann bei meiner Arbeit selbst bestimmen, wann man was macht.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage5" value="1" required></td>
         <td><input type="radio" name="frage5" value="2"></td>
         <td><input type="radio" name="frage5" value="3"></td>
@@ -194,7 +242,12 @@
 
       <tr>
         <td>6</td>
-        <td>Man hat viele Freiheiten in der Art und Weise, wie man seine Arbeit verrichtet.</td>
+        <td class="frage-text">Man hat viele Freiheiten in der Art und Weise, wie man seine Arbeit verrichtet.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage6" value="1" required></td>
         <td><input type="radio" name="frage6" value="2"></td>
         <td><input type="radio" name="frage6" value="3"></td>
@@ -204,7 +257,12 @@
 
       <tr>
         <td>7</td>
-        <td>Bei meiner Arbeit hat man fast jeden Tag etwas anderes zu tun.</td>
+        <td class="frage-text">Bei meiner Arbeit hat man fast jeden Tag etwas anderes zu tun.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage7" value="1" required></td>
         <td><input type="radio" name="frage7" value="2"></td>
         <td><input type="radio" name="frage7" value="3"></td>
@@ -214,7 +272,12 @@
 
       <tr>
         <td>8</td>
-        <td>Die Arbeitsaufgaben wechseln häufig bei meiner Arbeit.</td>
+        <td class="frage-text">Die Arbeitsaufgaben wechseln häufig bei meiner Arbeit.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage8" value="1" required></td>
         <td><input type="radio" name="frage8" value="2"></td>
         <td><input type="radio" name="frage8" value="3"></td>
@@ -224,7 +287,12 @@
 
       <tr>
         <td>9</td>
-        <td>Man muss bei meiner Arbeit unterschiedliche Fähigkeiten einsetzen.</td>
+        <td class="frage-text">Man muss bei meiner Arbeit unterschiedliche Fähigkeiten einsetzen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage9" value="1" required></td>
         <td><input type="radio" name="frage9" value="2"></td>
         <td><input type="radio" name="frage9" value="3"></td>
@@ -234,7 +302,12 @@
 
       <tr>
         <td>10</td>
-        <td>Es ist leicht, die für die Arbeit notwendigen Informationen zu beschaffen.</td>
+        <td class="frage-text">Es ist leicht, die für die Arbeit notwendigen Informationen zu beschaffen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage10" value="1" required></td>
         <td><input type="radio" name="frage10" value="2"></td>
         <td><input type="radio" name="frage10" value="3"></td>
@@ -244,7 +317,12 @@
 
       <tr>
         <td>11</td>
-        <td>Erforderliche Unterlagen, Informationen und Daten sind bei meiner Arbeit meistens vollständig.</td>
+        <td class="frage-text">Erforderliche Unterlagen, Informationen und Daten sind bei meiner Arbeit meistens vollständig.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage11" value="1" required></td>
         <td><input type="radio" name="frage11" value="2"></td>
         <td><input type="radio" name="frage11" value="3"></td>
@@ -254,7 +332,12 @@
 
       <tr>
         <td>12</td>
-        <td>Entscheidungen licht leicht zu treffen, weil häufig alle notwendigen Informationen vorliegen.</td>
+        <td class="frage-text">Entscheidungen sind leicht zu treffen, weil häufig alle notwendigen Informationen vorliegen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage12" value="1" required></td>
         <td><input type="radio" name="frage12" value="2"></td>
         <td><input type="radio" name="frage12" value="3"></td>
@@ -264,7 +347,12 @@
 
       <tr>
         <td>13</td>
-        <td>Die tägliche Informationsmenge bei meiner Arbeit ist genau richtig (zum Beispiel Mails, Unternehmenskommunikation).</td>
+        <td class="frage-text">Die tägliche Informationsmenge bei meiner Arbeit ist genau richtig (zum Beispiel Mails, Unternehmenskommunikation).</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage13" value="1" required></td>
         <td><input type="radio" name="frage13" value="2"></td>
         <td><input type="radio" name="frage13" value="3"></td>
@@ -274,7 +362,12 @@
 
       <tr>
         <td>14</td>
-        <td>Die wichtigen Informationen sind in den verfügbaren Daten gut zu erkennen.</td>
+        <td class="frage-text">Die wichtigen Informationen sind in den verfügbaren Daten gut zu erkennen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage14" value="1" required></td>
         <td><input type="radio" name="frage14" value="2"></td>
         <td><input type="radio" name="frage14" value="3"></td>
@@ -284,7 +377,12 @@
 
       <tr>
         <td>15</td>
-        <td>Die vielen unterschiedlichen Informationskanäle (zum Beispiel Akten, Datenbanken, Intranet) sind gut zu handhaben.</td>
+        <td class="frage-text">Die vielen unterschiedlichen Informationskanäle (zum Beispiel Akten, Datenbanken, Intranet) sind gut zu handhaben.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage15" value="1" required></td>
         <td><input type="radio" name="frage15" value="2"></td>
         <td><input type="radio" name="frage15" value="3"></td>
@@ -294,7 +392,12 @@
 
       <tr>
         <td>16</td>
-        <td>Man weiß genau, wie weit die eigenen Entscheidungsbefugnisse reichen.</td>
+        <td class="frage-text">Man weiß genau, wie weit die eigenen Entscheidungsbefugnisse reichen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage16" value="1" required></td>
         <td><input type="radio" name="frage16" value="2"></td>
         <td><input type="radio" name="frage16" value="3"></td>
@@ -304,7 +407,12 @@
 
       <tr>
         <td>17</td>
-        <td>Man erhält immer genaue und <b>nie</b> widersprüchliche Anweisungen von unterschiedlichen Stellen (Führungskräften/Abteilungen).</td>
+        <td class="frage-text">Man erhält immer genaue und <b>nie</b> widersprüchliche Anweisungen von unterschiedlichen Stellen (Führungskräften/Abteilungen).</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage17" value="1" required></td>
         <td><input type="radio" name="frage17" value="2"></td>
         <td><input type="radio" name="frage17" value="3"></td>
@@ -314,7 +422,12 @@
 
       <tr>
         <td>18</td>
-        <td>Bei meiner Arbeit sind die Prioritäten klar abgesteckt.</td>
+        <td class="frage-text">Bei meiner Arbeit sind die Prioritäten klar abgesteckt.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage18" value="1" required></td>
         <td><input type="radio" name="frage18" value="2"></td>
         <td><input type="radio" name="frage18" value="3"></td>
@@ -324,7 +437,12 @@
 
       <tr>
         <td>19</td>
-        <td>Man muss nur Aufgaben übernehmen, für die man korrekt eingearbeitet ist.</td>
+        <td class="frage-text">Man muss nur Aufgaben übernehmen, für die man korrekt eingearbeitet ist.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage19" value="1" required></td>
         <td><input type="radio" name="frage19" value="2"></td>
         <td><input type="radio" name="frage19" value="3"></td>
@@ -334,7 +452,12 @@
 
       <tr>
         <td>20</td>
-        <td>Bei meiner Arbeit muss man nur Tätigkeiten durchführen, für die man auch ausgebildet ist.</td>
+        <td class="frage-text">Bei meiner Arbeit muss man nur Tätigkeiten durchführen, für die man auch ausgebildet ist.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage20" value="1" required></td>
         <td><input type="radio" name="frage20" value="2"></td>
         <td><input type="radio" name="frage20" value="3"></td>
@@ -344,7 +467,12 @@
 
       <tr>
         <td>21</td>
-        <td>Man fühlt sich <b>nicht</b> von den Aufgaben überfordert.</td>
+        <td class="frage-text">Man fühlt sich <b>nicht</b> von den Aufgaben überfordert.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage21" value="1" required></td>
         <td><input type="radio" name="frage21" value="2"></td>
         <td><input type="radio" name="frage21" value="3"></td>
@@ -354,7 +482,12 @@
 
       <tr>
         <td>22</td>
-        <td>Bei meiner Arbeit hat man auch anspruchsvolle Aufgabe.</td>
+        <td class="frage-text">Bei meiner Arbeit hat man auch anspruchsvolle Aufgabe.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage22" value="1" required></td>
         <td><input type="radio" name="frage22" value="2"></td>
         <td><input type="radio" name="frage22" value="3"></td>
@@ -364,7 +497,12 @@
 
       <tr>
         <td>23</td>
-        <td>Meine mögliche Leistung entspricht genau den Anforderungen.</td>
+        <td class="frage-text">Meine mögliche Leistung entspricht genau den Anforderungen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage23" value="1" required></td>
         <td><input type="radio" name="frage23" value="2"></td>
         <td><input type="radio" name="frage23" value="3"></td>
@@ -374,7 +512,12 @@
 
       <tr>
         <td>24</td>
-        <td>Man fühlt sich <b>nicht</b> bei meiner Arbeit unterfordert.</td>
+        <td class="frage-text">Man fühlt sich <b>nicht</b> bei meiner Arbeit unterfordert.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage24" value="1" required></td>
         <td><input type="radio" name="frage24" value="2"></td>
         <td><input type="radio" name="frage24" value="3"></td>
@@ -383,7 +526,12 @@
 
       <tr>
         <td>25</td>
-        <td>Meine Arbeit bringt einen <b>nicht</b> in stark emotional belastende Situationen (zum Beispiel Trauer, Wut).</td>
+        <td class="frage-text">Meine Arbeit bringt einen <b>nicht</b> in stark emotional belastende Situationen (zum Beispiel Trauer, Wut).</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage25" value="1" required></td>
         <td><input type="radio" name="frage25" value="2"></td>
         <td><input type="radio" name="frage25" value="3"></td>
@@ -392,7 +540,12 @@
 
       <tr>
         <td>26</td>
-        <td>Bei meiner Arbeit ist man <b>nie</b> mit aggressivem Verhalten oder Übergriffen (zum Beispiel von Kundinnen/Kunden oder von Klientinnen/Klienten) konfrontiert.</td>
+        <td class="frage-text">Bei meiner Arbeit ist man <b>nie</b> mit aggressivem Verhalten oder Übergriffen (zum Beispiel von Kundinnen/Kunden oder von Klientinnen/Klienten) konfrontiert.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage26" value="1" required></td>
         <td><input type="radio" name="frage26" value="2"></td>
         <td><input type="radio" name="frage26" value="3"></td>
@@ -401,7 +554,12 @@
 
       <tr>
         <td>27</td>
-        <td>Es passiert selten bis gar nicht, dass man mit unverschämten Personen oder unangemessenem Verhalten zu tun hat.</td>
+        <td class="frage-text">Es passiert selten bis gar nicht, dass man mit unverschämten Personen oder unangemessenem Verhalten zu tun hat.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage27" value="1" required></td>
         <td><input type="radio" name="frage27" value="2"></td>
         <td><input type="radio" name="frage27" value="3"></td>
@@ -410,7 +568,12 @@
 
       <tr>
         <td>28</td>
-        <td>Bei meiner Arbeit muss man selten bis gar nicht nach außen hin Gefühle zeigen, die nicht mit den eigentlichen Gefühlen übereinstimmen.</td>
+        <td class="frage-text">Bei meiner Arbeit muss man selten bis gar nicht nach außen hin Gefühle zeigen, die nicht mit den eigentlichen Gefühlen übereinstimmen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage28" value="1" required></td>
         <td><input type="radio" name="frage28" value="2"></td>
         <td><input type="radio" name="frage28" value="3"></td>
@@ -419,7 +582,12 @@
 
       <tr>
         <td>29</td>
-        <td>Bei meiner Arbeit muss man seine aktuellen Gefühle <b>nie</b> verbergen.</td>
+        <td class="frage-text">Bei meiner Arbeit muss man seine aktuellen Gefühle <b>nie</b> verbergen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage29" value="1" required></td>
         <td><input type="radio" name="frage29" value="2"></td>
         <td><input type="radio" name="frage29" value="3"></td>
@@ -428,7 +596,12 @@
 
       <tr>
         <td>30</td>
-        <td>Man muss <b>niemals</b> die eigenen Gefühle den momentanen Gefühlen von anderen anpassen.</td>
+        <td class="frage-text">Man muss <b>niemals</b> die eigenen Gefühle den momentanen Gefühlen von anderen anpassen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage30" value="1" required></td>
         <td><input type="radio" name="frage30" value="2"></td>
         <td><input type="radio" name="frage30" value="3"></td>
@@ -437,7 +610,12 @@
 
       <tr>
         <td>31</td>
-        <td>Man hat <b>keine</b> sehr stark variierende Arbeitszeiten.</td>
+        <td class="frage-text">Man hat <b>keine</b> sehr stark variierende Arbeitszeiten.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage31" value="1" required></td>
         <td><input type="radio" name="frage31" value="2"></td>
         <td><input type="radio" name="frage31" value="3"></td>
@@ -446,7 +624,12 @@
 
       <tr>
         <td>32</td>
-        <td>Man muss <b>nie</b> zu ungünstigen Arbeitszeiten arbeiten.</td>
+        <td class="frage-text">Man muss <b>nie</b> zu ungünstigen Arbeitszeiten arbeiten.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage32" value="1" required></td>
         <td><input type="radio" name="frage32" value="2"></td>
         <td><input type="radio" name="frage32" value="3"></td>
@@ -455,7 +638,12 @@
 
       <tr>
         <td>33</td>
-        <td>Bei meiner Arbeit ist man zu keiner Zeit mit schlecht gestalteten Arbeitszeiten konfrontiert.</td>
+        <td class="frage-text">Bei meiner Arbeit ist man zu keiner Zeit mit schlecht gestalteten Arbeitszeiten konfrontiert.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage33" value="1" required></td>
         <td><input type="radio" name="frage33" value="2"></td>
         <td><input type="radio" name="frage33" value="3"></td>
@@ -464,7 +652,12 @@
 
       <tr>
         <td>34</td>
-        <td>Bei meiner Arbeit macht man selten bis gar keine Überstunden.</td>
+        <td class="frage-text">Bei meiner Arbeit macht man selten bis gar keine Überstunden.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage34" value="1" required></td>
         <td><input type="radio" name="frage34" value="2"></td>
         <td><input type="radio" name="frage34" value="3"></td>
@@ -473,7 +666,12 @@
 
       <tr>
         <td>35</td>
-        <td>Man bekommt selten bis gar nicht kurzfristig zusätzliche Aufgaben, sodass man den Feierabend nicht einhalten kann.</td>
+        <td class="frage-text">Man bekommt selten bis gar nicht kurzfristig zusätzliche Aufgaben, sodass man den Feierabend nicht einhalten kann.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage35" value="1" required></td>
         <td><input type="radio" name="frage35" value="2"></td>
         <td><input type="radio" name="frage35" value="3"></td>
@@ -482,7 +680,12 @@
 
       <tr>
         <td>36</td>
-        <td>Außerhalb der regulären Arbeitszeiten ist es bei meiner Arbeit selten bis gar nicht erforderlich, verfügbar zu sein.</td>
+        <td class="frage-text">Außerhalb der regulären Arbeitszeiten ist es bei meiner Arbeit selten bis gar nicht erforderlich, verfügbar zu sein.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage36" value="1" required></td>
         <td><input type="radio" name="frage36" value="2"></td>
         <td><input type="radio" name="frage36" value="3"></td>
@@ -491,7 +694,12 @@
 
       <tr>
         <td>37</td>
-        <td>Um die Arbeitsmenge bei meiner Arbeit zu schaffen, muss man nur selten länger arbeiten aber niemals Pausen wegfallen lassen.</td>
+        <td class="frage-text">Um die Arbeitsmenge bei meiner Arbeit zu schaffen, muss man nur selten länger arbeiten aber niemals Pausen wegfallen lassen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage37" value="1" required></td>
         <td><input type="radio" name="frage37" value="2"></td>
         <td><input type="radio" name="frage37" value="3"></td>
@@ -500,7 +708,12 @@
 
       <tr>
         <td>38</td>
-        <td>Trotz der hohen Arbeitsmenge kommt es <b>nie</b> zu hohem Zeitdruck.</td>
+        <td class="frage-text">Trotz der hohen Arbeitsmenge kommt es <b>nie</b> zu hohem Zeitdruck.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage38" value="1" required></td>
         <td><input type="radio" name="frage38" value="2"></td>
         <td><input type="radio" name="frage38" value="3"></td>
@@ -509,7 +722,12 @@
 
       <tr>
         <td>39</td>
-        <td>Es kommt selten bis gar nicht vor, dass man nicht genügend Zeit hat, alle Aufgaben zu erledigen.</td>
+        <td class="frage-text">Es kommt selten bis gar nicht vor, dass man nicht genügend Zeit hat, alle Aufgaben zu erledigen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage39" value="1" required></td>
         <td><input type="radio" name="frage39" value="2"></td>
         <td><input type="radio" name="frage39" value="3"></td>
@@ -518,7 +736,12 @@
 
       <tr>
         <td>40</td>
-        <td>Man wird bei der täglichen Arbeit nur sehr selten durch andere Personen unterbrochen.</td>
+        <td class="frage-text">Man wird bei der täglichen Arbeit nur sehr selten durch andere Personen unterbrochen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage40" value="1" required></td>
         <td><input type="radio" name="frage40" value="2"></td>
         <td><input type="radio" name="frage40" value="3"></td>
@@ -527,7 +750,12 @@
 
       <tr>
         <td>41</td>
-        <td>Man hat selten bis gar nicht mehrere Aufgaben gleichzeitig, zwischen denen man hin- und herspringen muss.</td>
+        <td class="frage-text">Man hat selten bis gar nicht mehrere Aufgaben gleichzeitig, zwischen denen man hin- und herspringen muss.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage41" value="1" required></td>
         <td><input type="radio" name="frage41" value="2"></td>
         <td><input type="radio" name="frage41" value="3"></td>
@@ -536,7 +764,12 @@
 
       <tr>
         <td>42</td>
-        <td>Man muss bei meiner Arbeit selten bis gar nicht aktuelle Arbeiten unterbrechen, weil etwas Wichtiges dazwischenkommt.</td>
+        <td class="frage-text">Man muss bei meiner Arbeit selten bis gar nicht aktuelle Arbeiten unterbrechen, weil etwas Wichtiges dazwischenkommt.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage42" value="1" required></td>
         <td><input type="radio" name="frage42" value="2"></td>
         <td><input type="radio" name="frage42" value="3"></td>
@@ -545,7 +778,12 @@
 
       <tr>
         <td>43</td>
-        <td>Man steht in direktem persönlichen Kontakt mit Kolleginnen und Kollegen.</td>
+        <td class="frage-text">Man steht in direktem persönlichen Kontakt mit Kolleginnen und Kollegen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage43" value="1" required></td>
         <td><input type="radio" name="frage43" value="2"></td>
         <td><input type="radio" name="frage43" value="3"></td>
@@ -554,7 +792,12 @@
 
       <tr>
         <td>44</td>
-        <td>An meinem Arbeitsplatz mangelt es nicht an Möglichkeiten zum persönlichen Austausch.</td>
+        <td class="frage-text">An meinem Arbeitsplatz mangelt es nicht an Möglichkeiten zum persönlichen Austausch.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage44" value="1" required></td>
         <td><input type="radio" name="frage44" value="2"></td>
         <td><input type="radio" name="frage44" value="3"></td>
@@ -563,7 +806,12 @@
 
       <tr>
         <td>45</td>
-        <td>Man kann sich bei meiner Arbeit mit seinen Kolleginnen und Kollegen unterhalten.</td>
+        <td class="frage-text">Man kann sich bei meiner Arbeit mit seinen Kolleginnen und Kollegen unterhalten.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage45" value="1" required></td>
         <td><input type="radio" name="frage45" value="2"></td>
         <td><input type="radio" name="frage45" value="3"></td>
@@ -572,7 +820,12 @@
 
       <tr>
         <td>46</td>
-        <td>Wenn es Probleme bei der Arbeit gibt, kann man sich auf die Unterstützung der Kolleginnen und Kollegen verlassen.</td>
+        <td class="frage-text">Wenn es Probleme bei der Arbeit gibt, kann man sich auf die Unterstützung der Kolleginnen und Kollegen verlassen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage46" value="1" required></td>
         <td><input type="radio" name="frage46" value="2"></td>
         <td><input type="radio" name="frage46" value="3"></td>
@@ -581,7 +834,12 @@
 
       <tr>
         <td>47</td>
-        <td>Man kann mit seinen Kolleginnen und Kollegen offen über alles reden.</td>
+        <td class="frage-text">Man kann mit seinen Kolleginnen und Kollegen offen über alles reden.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage47" value="1" required></td>
         <td><input type="radio" name="frage47" value="2"></td>
         <td><input type="radio" name="frage47" value="3"></td>
@@ -590,7 +848,12 @@
 
       <tr>
         <td>48</td>
-        <td>Meine Kolleginnen und Kollegen sind immer bereit, sich meine Arbeitsprobleme anzuhören.</td>
+        <td class="frage-text">Meine Kolleginnen und Kollegen sind immer bereit, sich meine Arbeitsprobleme anzuhören.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage48" value="1" required></td>
         <td><input type="radio" name="frage48" value="2"></td>
         <td><input type="radio" name="frage48" value="3"></td>
@@ -599,7 +862,12 @@
 
       <tr>
         <td>49</td>
-        <td>Es gibt selten bis gar keine Spannungen unter Kolleginnen und Kollegen.</td>
+        <td class="frage-text">Es gibt selten bis gar keine Spannungen unter Kolleginnen und Kollegen.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage49" value="1" required></td>
         <td><input type="radio" name="frage49" value="2"></td>
         <td><input type="radio" name="frage49" value="3"></td>
@@ -608,7 +876,12 @@
 
       <tr>
         <td>50</td>
-        <td>Man wird bei meiner Arbeit von anderen <b>nie</b> ungerecht kritisiert oder bloßgestellt.</td>
+        <td class="frage-text">Man wird bei meiner Arbeit von anderen <b>nie</b> ungerecht kritisiert oder bloßgestellt.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage50" value="1" required></td>
         <td><input type="radio" name="frage50" value="2"></td>
         <td><input type="radio" name="frage50" value="3"></td>
@@ -617,7 +890,12 @@
 
       <tr>
         <td>51</td>
-        <td>Es gibt niemals Streitereien an meinem Arbeitsplatz.</td>
+        <td class="frage-text">Es gibt niemals Streitereien an meinem Arbeitsplatz.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage51" value="1" required></td>
         <td><input type="radio" name="frage51" value="2"></td>
         <td><input type="radio" name="frage51" value="3"></td>
@@ -626,7 +904,12 @@
 
       <tr>
         <td>52</td>
-        <td>Meine Führungskraft ist bereit, sich meine Probleme anzuhören.</td>
+        <td class="frage-text">Meine Führungskraft ist bereit, sich meine Probleme anzuhören.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage52" value="1" required></td>
         <td><input type="radio" name="frage52" value="2"></td>
         <td><input type="radio" name="frage52" value="3"></td>
@@ -635,7 +918,12 @@
 
       <tr>
         <td>53</td>
-        <td>Man kann sich auf die Unterstützung der Führungskraft verlassen, wenn es Probleme bei der Arbeit gibt.</td>
+        <td class="frage-text">Man kann sich auf die Unterstützung der Führungskraft verlassen, wenn es Probleme bei der Arbeit gibt.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage53" value="1" required></td>
         <td><input type="radio" name="frage53" value="2"></td>
         <td><input type="radio" name="frage53" value="3"></td>
@@ -644,7 +932,12 @@
 
       <tr>
         <td>54</td>
-        <td>Meine Führungskraft unterstützt mich, sodass ich meine Aufgaben leichter erfüllen kann.</td>
+        <td class="frage-text">Meine Führungskraft unterstützt mich, sodass ich meine Aufgaben leichter erfüllen kann.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage54" value="1" required></td>
         <td><input type="radio" name="frage54" value="2"></td>
         <td><input type="radio" name="frage54" value="3"></td>
@@ -653,7 +946,12 @@
 
       <tr>
         <td>55</td>
-        <td>Man bekommt von Führungskräften sowie von Kolleginnen und Kollegen Rückmeldungen über die Qualität der Arbeit.</td>
+        <td class="frage-text">Man bekommt von Führungskräften sowie von Kolleginnen und Kollegen Rückmeldungen über die Qualität der Arbeit.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage55" value="1" required></td>
         <td><input type="radio" name="frage55" value="2"></td>
         <td><input type="radio" name="frage55" value="3"></td>
@@ -662,7 +960,12 @@
 
       <tr>
         <td>56</td>
-        <td>Man erhält Wertschätzung für seine Arbeit.</td>
+        <td class="frage-text">Man erhält Wertschätzung für seine Arbeit.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage56" value="1" required></td>
         <td><input type="radio" name="frage56" value="2"></td>
         <td><input type="radio" name="frage56" value="3"></td>
@@ -671,7 +974,12 @@
 
       <tr>
         <td>57</td>
-        <td>Meine Führungskraft gibt mir nützliches Feedback über meine Arbeitsleistung.</td>
+        <td class="frage-text">Meine Führungskraft gibt mir nützliches Feedback über meine Arbeitsleistung.</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage57" value="1" required></td>
         <td><input type="radio" name="frage57" value="2"></td>
         <td><input type="radio" name="frage57" value="3"></td>
@@ -680,7 +988,12 @@
 
       <tr>
         <td>58</td>
-        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Lärm</td>
+        <td class="frage-text">An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Lärm</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage58" value="1" required></td>
         <td><input type="radio" name="frage58" value="2"></td>
         <td><input type="radio" name="frage58" value="3"></td>
@@ -689,7 +1002,12 @@
 
       <tr>
         <td>59</td>
-        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Hitze</td>
+        <td class="frage-text">An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Hitze</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage59" value="1" required></td>
         <td><input type="radio" name="frage59" value="2"></td>
         <td><input type="radio" name="frage59" value="3"></td>
@@ -698,7 +1016,12 @@
 
       <tr>
         <td>60</td>
-        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Ungünstige Beleuchtung / Blendung</td>
+        <td class="frage-text">An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Ungünstige Beleuchtung / Blendung</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage60" value="1" required></td>
         <td><input type="radio" name="frage60" value="2"></td>
         <td><input type="radio" name="frage60" value="3"></td>
@@ -707,7 +1030,12 @@
 
       <tr>
         <td>61</td>
-        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Gefahrstoffe</td>
+        <td class="frage-text">An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Gefahrstoffe</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage61" value="1" required></td>
         <td><input type="radio" name="frage61" value="2"></td>
         <td><input type="radio" name="frage61" value="3"></td>
@@ -716,7 +1044,12 @@
 
       <tr>
         <td>62</td>
-        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Räumliche Enge</td>
+        <td class="frage-text">An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Räumliche Enge</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage62" value="1" required></td>
         <td><input type="radio" name="frage62" value="2"></td>
         <td><input type="radio" name="frage62" value="3"></td>
@@ -725,7 +1058,12 @@
 
       <tr>
         <td>63</td>
-        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Ungünstige ergonomische Gestaltung</td>
+        <td class="frage-text">An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Ungünstige ergonomische Gestaltung</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage63" value="1" required></td>
         <td><input type="radio" name="frage63" value="2"></td>
         <td><input type="radio" name="frage63" value="3"></td>
@@ -734,7 +1072,12 @@
 
       <tr>
         <td>64</td>
-        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Ununterbrochen gleiche Bewegung</td>
+        <td class="frage-text">An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Ununterbrochen gleiche Bewegung</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage64" value="1" required></td>
         <td><input type="radio" name="frage64" value="2"></td>
         <td><input type="radio" name="frage64" value="3"></td>
@@ -743,7 +1086,12 @@
 
       <tr>
         <td>65</td>
-        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Unzureichende Gestaltung von Signalen und Hinweisen</td>
+        <td class="frage-text">An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Unzureichende Gestaltung von Signalen und Hinweisen</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage65" value="1" required></td>
         <td><input type="radio" name="frage65" value="2"></td>
         <td><input type="radio" name="frage65" value="3"></td>
@@ -752,7 +1100,12 @@
 
       <tr>
         <td>66</td>
-        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Schwere körpeliche Arbeit</td>
+        <td class="frage-text">An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Schwere körpeliche Arbeit</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage66" value="1" required></td>
         <td><input type="radio" name="frage66" value="2"></td>
         <td><input type="radio" name="frage66" value="3"></td>
@@ -761,7 +1114,12 @@
 
       <tr>
         <td>67</td>
-        <td>An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Fehlende oder ungünstig zu bedienende Arbeitsmittel</td>
+        <td class="frage-text">An meinem Arbeitsplatz ist diese Umgebungsbelastung <b>nicht</b> vorhanden: Fehlende oder ungünstig zu bedienende Arbeitsmittel</td>
+       <td>
+          <button type="button" class="translate-btn row-translate">
+            🌍
+          </button>
+        </td>
         <td><input type="radio" name="frage67" value="1" required></td>
         <td><input type="radio" name="frage67" value="2"></td>
         <td><input type="radio" name="frage67" value="3"></td>
@@ -773,7 +1131,8 @@
 
     <button type="button" onclick="auswerten()">Auswertung</button>
     <br><br>
-    <p><u>(&#8593;&#8593;&#8593; Ansicht bitte hochschieben &#8593;&#8593;&#8593;)</u></p>
+    <p><u>&#8593;&#8593;&#8593; Nach Klick auf den „Auswertung“-Button bitte nach oben scrollen – das Ergebnis wird unterhalb der Tabelle angezeigt.     &#8593;&#8593;&#8593</u></p>
+<p><u>&#8593;&#8593;&#8593; After clicking the “Evaluation” button, please scroll up – the result is displayed below the table.     &#8593;&#8593;&#8593</u></p>
     <br><br>
     <br><br>
     <br><br>
@@ -782,6 +1141,10 @@
 
   <div id="auswertung" class="hidden print-area">
     <h2>Auswertung</h2>
+<div style="text-align:center; margin-bottom:20px;">
+  <button class="translate-btn" onclick="openAuswertungTextTranslate()">Google Translator</button>
+</div>
+<div id="auswertung-text">
     <canvas id="balkenChart"></canvas>
 
     <div class="bewertungs-label">
@@ -805,11 +1168,11 @@
 <p>Hinweise zum Drucken und Speichern:</p>
 <p>Aktivieren Sie unter "Weitere Einstellungen" im Druckmenü die Hintergundgrafiken, damit alle Farben gedruckt werden!</p>
 <p>Wählen Sie anstelle des Druckers "als pdf speichern" aus, um den Nachweis an einen beliebigen Ort zu speichern.</p>
-    
+   </div> 
 <div class="button-row">
-      <button onclick="window.print()">Drucken/speichern der Auswertung</button>
-      <button onclick="resetForm()">Fragebogen von vorne beginnen</button>
-      <button onclick="zeigeBestaetigung()">Bestätigung anzeigen</button>
+      <button onclick="window.print()">Print/save the report</button>
+      <button onclick="resetForm()">Start questionnaire from the beginning</button>
+      <button onclick="zeigeBestaetigung()">Show confirmation</button>
     </div>
   </div>
 
@@ -822,8 +1185,8 @@
     <p>Bitte speichern Sie diese Bestätigung und senden NUR diese an: arbeitsscherheit@tpholding.de</p>
 
     <div class="button-row">
-      <button onclick="window.print()">💾 Als PDF speichern</button>
-      <button onclick="resetForm()">Fragebogen von vorne beginnen</button>
+      <button onclick="window.print()">💾 Save as PDF</button>
+      <button onclick="resetForm()">Start questionnaire from the beginning</button>
     </div>
   </div>
 
@@ -833,7 +1196,7 @@
       const datum = document.getElementById("datum").value;
 
       if (!name || !datum) {
-        alert("Bitte Name und Datum eingeben.");
+        alert("Bitte Name und Datum eingeben. (Please enter name and date.)");
         return;
       }
 
@@ -845,7 +1208,7 @@
         if (checked) {
           antworten.push(parseInt(checked.value));
         } else {
-          alert("Bitte alle Fragen beantworten.");
+          alert("Bitte alle Fragen beantworten. (Please answer all questions.)");
           return;
         }
       }
@@ -947,6 +1310,38 @@
       document.getElementById("eingabeBereich").classList.add("hidden");
       document.querySelector("header").classList.add("hidden");
     }
+
+function openStartTextTranslate() {
+  // Alles innerhalb des Starttext-Bereichs auswählen
+  const startText = document.getElementById("start-text").innerText;
+  const url = "https://translate.google.com/?sl=de&tl=en&text=" + encodeURIComponent(startText) + "&op=translate";
+  window.open(url, "_blank");
+}
+function openAuswertungTextTranslate() {
+  // Alles innerhalb des Auswertungs-Bereichs auswählen
+  const auswertungText = document.getElementById("auswertung-text").innerText;
+  const url = "https://translate.google.com/?sl=de&tl=en&text=" + encodeURIComponent(auswertungText) + "&op=translate";
+  window.open(url, "_blank");
+}
+
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("row-translate")) {
+    const row = e.target.closest("tr");
+    const textCell = row.querySelector(".frage-text, th");
+
+    if (!textCell) return;
+
+    const text = textCell.innerText.trim();
+    const url =
+      "https://translate.google.com/?sl=de&tl=en&text=" +
+      encodeURIComponent(text) +
+      "&op=translate";
+
+    window.open(url, "_blank");
+  }
+});
+
+
   </script>
 </body>
 </html>
